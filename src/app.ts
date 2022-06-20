@@ -2,6 +2,7 @@ import express, { Application } from "express";
 import cors from "cors";
 import morgan from "morgan";
 import helmet from "helmet";
+import error from "./middleware/error";
 import routes from "./routes";
 
 // express server instance
@@ -19,6 +20,13 @@ app.use(morgan("dev"));
 
 // api routes
 app.use("/api", routes);
-
+// handle 404 error & error handler
+app.use(error);
+app.use((req, res, next) => {
+  res.status(404).json({
+    message:
+      "404 Not Found - The requested URL was not found on the server.check the API documentation for the correct URL.",
+  });
+});
 // export app for testing
 export default app;
