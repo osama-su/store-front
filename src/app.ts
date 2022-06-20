@@ -4,6 +4,8 @@ import morgan from "morgan";
 import helmet from "helmet";
 import error from "./middleware/error";
 import routes from "./routes";
+import db from "./database";
+import { ClientRequest } from "http";
 
 // express server instance
 const app: Application = express();
@@ -20,6 +22,20 @@ app.use(morgan("dev"));
 
 // api routes
 app.use("/api", routes);
+// test database connection
+db.connect().then((client) => {
+  return client
+    .query("SELECT NOW()")
+    .then((res) => {
+      client.release();
+      console.log(res.rows);
+    })
+    .catch((err) => {
+      client.release();
+      console.error(err.stack);
+    });
+});
+
 // handle 404 error & error handler
 app.use(error);
 app.use((req, res, next) => {
