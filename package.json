@@ -6,7 +6,7 @@
   "scripts": {
     "start": "tsc && node build/index.js",
     "watch": "tsc-watch --esModuleInterop src/index.ts --outDir ./build --onSuccess \"node ./build/index.js\"",
-    "migrate": "db-migrate",
+    "migrate": "db-migrate up -m ./src/database/migrations",
     "test": "jasmine-ts",
     "build": "tsc",
     "lint": "eslint . --ext .ts",
