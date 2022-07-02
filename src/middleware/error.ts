@@ -1,5 +1,5 @@
 import { Response, Request, NextFunction } from "express";
-import Error from "../interfaces/error";
+import Error from "../interfaces/errorInterface";
 
 const error = (err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
