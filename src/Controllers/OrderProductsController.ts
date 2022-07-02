@@ -23,7 +23,7 @@ export const index = async (
 export const show = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const reqorderProduct = await orderProduct.getByOrderId(
-      req.params.id as unknown as number
+      req.params.orderId as unknown as number
     );
     res.json({
       status: "success",

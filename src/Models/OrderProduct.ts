@@ -69,7 +69,7 @@ class OrderProduct {
             FROM orders
             LEFT JOIN order_products ON orders.id = order_products.order_id 
             LEFT JOIN products ON order_products.product_id = products.id 
-            GROUP BY orders.id, order_products.order_id, order_products.product_id`;
+            GROUP BY orders.id, order_products.order_id, order_products.product_id, order_products.id`;
       // get all orders from the database
       const result = await connection.query(query);
       // close the database connection
@@ -100,7 +100,7 @@ class OrderProduct {
                     LEFT JOIN order_products ON orders.id = order_products.order_id 
                     LEFT JOIN products ON order_products.product_id = products.id 
                     WHERE orders.id = $1
-                    GROUP BY orders.id, order_products.order_id, order_products.product_id`;
+                    GROUP BY orders.id, order_products.order_id, order_products.product_id, order_products.id`;
       // get all orders from the database
       const result = await connection.query(query, [orderId]);
       // close the database connection
