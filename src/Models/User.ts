@@ -1,5 +1,18 @@
 import db from "../database";
 import UserInterface from "../interfaces/userInterface";
+import config from "../config";
+import bcrypt from "bcrypt";
+
+const hashPassword = (password: string) => {
+  // apply pepper to the password
+  const pepper = config.pepper;
+  const pepperPassword = `${password}${pepper}`;
+  // hash the pepperPassword
+  // const salt = await bcrypt.genSalt(parseInt(config.salt as string, 10));
+  const salt = parseInt(config.salt as string, 10);
+  const hash = bcrypt.hashSync(pepperPassword, salt);
+  return hash;
+};
 
 class User {
   // create a new user
@@ -17,7 +30,7 @@ class User {
         user.first_name,
         user.last_name,
         user.email,
-        user.password,
+        hashPassword(user.password),
         user.created_at,
         user.updated_at,
       ]);
@@ -81,7 +94,7 @@ class User {
         user.first_name,
         user.last_name,
         user.email,
-        user.password,
+        hashPassword(user.password),
         user.updated_at,
         id,
       ]);

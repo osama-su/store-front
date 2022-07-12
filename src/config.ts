@@ -15,6 +15,8 @@ const config = {
     user: process.env.DB_USERNAME || "root",
     password: process.env.DB_PASSWORD || "",
   },
+  pepper: process.env.BCRYPT_PASSWORD,
+  salt: process.env.BCRYPT_SALT,
 };
 
 export default config;
