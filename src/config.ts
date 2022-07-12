@@ -17,6 +17,7 @@ const config = {
   },
   pepper: process.env.BCRYPT_PASSWORD,
   salt: process.env.BCRYPT_SALT,
+  tokenSecret: process.env.TOKEN_SECRET,
 };
 
 export default config;

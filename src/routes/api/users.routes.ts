@@ -9,4 +9,7 @@ routes
   .patch(UserController.update)
   .delete(UserController.destroy);
 
+// authenticate a user
+routes.post("/authenticate", UserController.authenticate);
+
 export default routes;

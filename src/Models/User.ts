@@ -129,6 +129,40 @@ class User {
   }
 
   // authenticate a user
+  async authenticate(
+    username: string,
+    password: string
+  ): Promise<UserInterface | null> {
+    try {
+      // open the database connection
+      const connection = await db.connect();
+      const query = `SELECT id, username, password, first_name, last_name, email, created_at, updated_at FROM users WHERE username = $1`;
+      // get the user from the database
+      const result = await connection.query(query, [username]);
+      // close the database connection
+      connection.release();
+      // if the user exists
+      if (result.rows.length > 0) {
+        // get the user
+        const user = result.rows[0];
+        // compare the password with pepper
+        const pepper = config.pepper;
+        const pepperPassword = `${password}${pepper}`;
+        const isValid = bcrypt.compareSync(pepperPassword, user.password);
+        // if the password is valid
+        if (isValid) {
+          // return the user
+          return user;
+        }
+      }
+      // if the user does not exist or the password is invalid
+      return null;
+    } catch (error) {
+      throw new Error(
+        `Unable to authenticate (${username}): ${(error as Error).message}`
+      );
+    }
+  }
 }
 
 export default User;
