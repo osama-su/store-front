@@ -20,6 +20,11 @@ app.use(helmet());
 // HTTP request logger middleware
 app.use(morgan("dev"));
 
+// root endpoint for testing
+app.get("/", (req, res) => {
+  res.send("Server is running : go to /api to use the API");
+});
+
 // api routes
 app.use("/api", routes);
 // test database connection

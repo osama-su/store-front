@@ -7,7 +7,7 @@
     "start": "tsc && node build/index.js",
     "watch": "tsc-watch --esModuleInterop src/index.ts --outDir ./build --onSuccess \"node ./build/index.js\"",
     "migrate": "db-migrate up -m ./src/database/migrations",
-    "test": "jasmine-ts",
+    "test": "export NODE_ENV=test &&  db-migrate up -m ./src/database/migrations --env test && tsc && jasmine && db-migrate down -m ./src/database/migrations --env test",
     "build": "tsc",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix"
