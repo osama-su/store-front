@@ -21,7 +21,7 @@ class User {
       // open the database connection
       const connection = await db.connect();
       const query = `INSERT INTO users (username, first_name, last_name, email, password, created_at, updated_at)
-        VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING username, first_name, last_name, email, created_at, updated_at`;
+        VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id, username, first_name, last_name, email, created_at, updated_at`;
       // insert the user into the database
       user.created_at = new Date();
       user.updated_at = new Date();
@@ -87,7 +87,7 @@ class User {
       // open the database connection
       const connection = await db.connect();
       user.updated_at = new Date();
-      const query = `UPDATE users SET username = $1, first_name = $2, last_name = $3, email = $4, password = $5, updated_at = $6 WHERE id = $7 RETURNING username, first_name, last_name, email, created_at, updated_at`;
+      const query = `UPDATE users SET username = $1, first_name = $2, last_name = $3, email = $4, password = $5, updated_at = $6 WHERE id = $7 RETURNING id, username, first_name, last_name, email, created_at, updated_at`;
       // update the user in the database
       const result = await connection.query(query, [
         user.username,
