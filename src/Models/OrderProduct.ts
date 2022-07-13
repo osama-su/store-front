@@ -33,12 +33,17 @@ class OrderProduct {
     try {
       // open the database connection
       const connection = await db.connect();
-      const query = `INSERT INTO order_products (order_id, product_id, quantity) VALUES ($1, $2, $3) RETURNING id, order_id, product_id, quantity`;
+      // created at and updated at are set to the current date
+      orderProduct.created_at = new Date();
+      orderProduct.updated_at = new Date();
+      const query = `INSERT INTO order_products (order_id, product_id, quantity, created_at, updated_at) VALUES ($1, $2, $3, $4, $5) RETURNING id, order_id, product_id, quantity, created_at, updated_at`;
       // create the order in the database
       const result = await connection.query(query, [
         orderProduct.orderId,
         orderProduct.productId,
         orderProduct.quantity,
+        orderProduct.created_at,
+        orderProduct.updated_at,
       ]);
       // close the database connection
       connection.release();

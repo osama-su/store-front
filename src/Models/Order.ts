@@ -117,8 +117,8 @@ class Order {
       const query = `UPDATE orders SET status = $1, updated_at = $2 WHERE id = $3 RETURNING id, status, user_id`;
       // update the order in the database
       const result = await connection.query(query, [
-        order.updated_at,
         order.status,
+        order.updated_at,
         order.id,
       ]);
       // close the database connection

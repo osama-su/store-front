@@ -3,11 +3,11 @@ import * as OrderProductsController from "../../Controllers/OrderProductsControl
 
 const routes = Router();
 routes
-  .route("/user/:id")
+  .route("/:id")
   .get(OrderProductsController.index)
   .post(OrderProductsController.create);
 routes
-  .route("/user/:id/order/:orderId")
+  .route("/:id/products/:id")
   .get(OrderProductsController.show)
   .patch(OrderProductsController.update)
   .delete(OrderProductsController.destroy);
