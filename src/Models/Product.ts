@@ -8,7 +8,7 @@ class Product {
       // open the database connection
       const connection = await db.connect();
       const query = `INSERT INTO products (name, description, price, category, created_at, updated_at)
-        VALUES ($1, $2, $3, $4, $5, $6) RETURNING name, description, price, category, created_at, updated_at`;
+        VALUES ($1, $2, $3, $4, $5, $6) RETURNING id, name, description, price, category, created_at, updated_at`;
       // insert the user into the database
       product.created_at = new Date();
       product.updated_at = new Date();
@@ -78,7 +78,7 @@ class Product {
       // open the database connection
       const connection = await db.connect();
       product.updated_at = new Date();
-      const query = `UPDATE products SET name = $1, description = $2, price = $3, category = $4, updated_at = $5 WHERE id = $6 RETURNING name, description, price, category, created_at, updated_at`;
+      const query = `UPDATE products SET name = $1, description = $2, price = $3, category = $4, updated_at = $5 WHERE id = $6 RETURNING id, name, description, price, category, created_at, updated_at`;
       // update the product in the database
       const result = await connection.query(query, [
         product.name,
