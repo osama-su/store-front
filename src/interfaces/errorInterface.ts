@@ -1,6 +1,6 @@
 interface Error {
   message: string;
-  status: number;
+  status?: number;
   stack?: string;
   name?: string;
 }
